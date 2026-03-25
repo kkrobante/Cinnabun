@@ -1,12 +1,16 @@
-name: Terraform Deploy
+name: CB_WEB_Terraform
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'PROJECTS/AWS/CB_WEB/INFRA/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'PROJECTS/AWS/CB_WEB/INFRA/**'
 
 jobs:
   TF-Workflow:
@@ -22,28 +26,28 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.CB_WEB_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CB_WEB_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.CB_WEB_AWS_REGION }}
 
       - name: Terraform Format
         run: terraform fmt
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Init
         run: terraform init
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
       
       - name: Terraform Validate
         run: terraform validate
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: terraform plan -out=tfplan -input=false -no-color
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
