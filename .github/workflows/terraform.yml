@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'PROJECTS/AWS/CB_WEB/INFRA/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'PROJECTS/AWS/CB_WEB/INFRA/**'
 
 jobs:
   TF-Workflow:
@@ -28,22 +32,22 @@ jobs:
 
       - name: Terraform Format
         run: terraform fmt
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Init
         run: terraform init
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
       
       - name: Terraform Validate
         run: terraform validate
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: terraform plan -out=tfplan -input=false -no-color
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA

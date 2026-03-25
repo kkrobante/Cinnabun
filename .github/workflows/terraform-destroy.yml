@@ -29,8 +29,8 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
-        working-directory: Infra
+        working-directory: PROJECTS/AWS/CB_WEB/INFRA
