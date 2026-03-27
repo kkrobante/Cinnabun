@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'PROJECTS/AWS/CB_WEB/INFRA/**'
+      - 'PROJECTS/CB_WEB/INFRA/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'PROJECTS/AWS/CB_WEB/INFRA/**'
+      - 'PROJECTS/CB_WEB/INFRA/**'
 
 jobs:
   TF-Workflow:
