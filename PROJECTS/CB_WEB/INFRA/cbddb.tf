@@ -1,5 +1,5 @@
 # RDS PostgreSQL
-resource "aws_db_instance" "postgres" {
+resource "aws_db_instance" "cbddb01" {
   allocated_storage    = 20
   engine               = "postgres"
   engine_version       = "17.6"
@@ -11,7 +11,7 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot  = true
   publicly_accessible  = true
   vpc_security_group_ids = [aws_security_group.CB-np.id]
-  db_subnet_group_name   = aws_db_subnet_group.privateA-np.name
+  db_subnet_group_name   = aws_db_subnet_group.private-a-np.name
 
 tags = merge(
         var.common_tags,
@@ -24,7 +24,7 @@ tags = merge(
 }
 
 # Subnet group for RDS np
-resource "aws_db_subnet_group" "privateA-np" {
-  name       = "postgres-subnet-group-privateA"
+resource "aws_db_subnet_group" "private-a-np" {
+  name       = "postgres-subnet-group-private-a"
   subnet_ids = [aws_subnet.private-a-np.id, aws_subnet.private-b-np.id]
 }
