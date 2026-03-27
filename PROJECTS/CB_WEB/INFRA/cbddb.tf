@@ -4,14 +4,14 @@ resource "aws_db_instance" "postgres" {
   engine               = "postgres"
   engine_version       = "17.6"
   instance_class       = "db.t4g.micro"
-  db_name              = cbddb01
-  username             = Admin123!
-  password             = Admin123!
+  db_name              = "cbddb01"
+  username             = "Admin123!"
+  password             = "Admin123!"
   parameter_group_name = "default.postgres17"
   skip_final_snapshot  = true
   publicly_accessible  = true
-  vpc_security_group_ids = [aws_security_group.CB.id]
-  db_subnet_group_name   = aws_db_subnet_group.RDS.name
+  vpc_security_group_ids = [aws_security_group.CB-np.id]
+  db_subnet_group_name   = aws_db_subnet_group.RDS-np.name
 
 tags = merge(
         var.common_tags,
@@ -24,7 +24,7 @@ tags = merge(
 }
 
 # Subnet group for RDS
-resource "aws_db_subnet_group" "RDS" {
+resource "aws_db_subnet_group" "RDS-np" {
   name       = "postgres-subnet-group"
   subnet_ids = [aws_subnet.private-a-np.id, aws_subnet.private-b-np.id]
 }

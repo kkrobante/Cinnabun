@@ -45,16 +45,16 @@ resource "aws_subnet" "public-b-np" {
 }
 
 # Internet Gateway
-resource "aws_internet_gateway" "TF-CB-igw" {
+resource "aws_internet_gateway" "TF-CB-igw-np" {
   vpc_id = aws_vpc.np.id
 
   tags = {
-    Name = "TF-CB-igw"
+    Name = "TF-CB-igw-np"
   }
 }
 
 # Route Table
-resource "aws_route_table" "public-entry" {
+resource "aws_route_table" "public-entry-np" {
   vpc_id = aws_vpc.np.id
   tags = {
         Name = "public entry to IGW"
@@ -62,14 +62,14 @@ resource "aws_route_table" "public-entry" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.TF-CB-igw.id
+    gateway_id = aws_internet_gateway.TF-CB-igw-np.id
   }
 }
 
 # Route Table Association
-resource "aws_route_table_association" "public-entry" {
+resource "aws_route_table_association" "public-entry-np" {
   subnet_id      = aws_subnet.public-a-np.id
-  route_table_id = aws_route_table.public-entry.id
+  route_table_id = aws_route_table.public-entry-np.id
 }
 
 

@@ -1,5 +1,5 @@
 # Security Group
-resource "aws_security_group" "CB" {
+resource "aws_security_group" "CB-np" {
   name   = "TF-CB-sg"
   vpc_id = aws_vpc.np.id
 
