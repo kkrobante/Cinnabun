@@ -23,7 +23,7 @@ tags = merge(
         )
 }
 
-# Subnet group for RDS
+# Subnet group for RDS np
 resource "aws_db_subnet_group" "privateA-np" {
   name       = "postgres-subnet-group-privateA"
   subnet_ids = [aws_subnet.private-a-np.id, aws_subnet.private-b-np.id]
