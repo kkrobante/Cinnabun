@@ -32,22 +32,22 @@ jobs:
 
       - name: Terraform Format
         run: terraform fmt
-        working-directory: PROJECTS/AWS/CB_WEB/INFRA
+        working-directory: PROJECTS/CB_WEB/INFRA
 
       - name: Terraform Init
         run: terraform init
-        working-directory: PROJECTS/AWS/CB_WEB/INFRA
+        working-directory: PROJECTS/CB_WEB/INFRA
       
       - name: Terraform Validate
         run: terraform validate
-        working-directory: PROJECTS/AWS/CB_WEB/INFRA
+        working-directory: PROJECTS/CB_WEB/INFRA
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: terraform plan -out=tfplan -input=false -no-color
-        working-directory: PROJECTS/AWS/CB_WEB/INFRA
+        working-directory: PROJECTS/CB_WEB/INFRA
 
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
-        working-directory: PROJECTS/AWS/CB_WEB/INFRA
+        working-directory: PROJECTS/CB_WEB/INFRA
