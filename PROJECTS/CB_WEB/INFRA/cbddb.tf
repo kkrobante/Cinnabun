@@ -11,7 +11,7 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot  = true
   publicly_accessible  = true
   vpc_security_group_ids = [aws_security_group.CB-np.id]
-  db_subnet_group_name   = aws_db_subnet_group.RDS-np.name
+  db_subnet_group_name   = aws_db_subnet_group.privateA-np.name
 
 tags = merge(
         var.common_tags,
@@ -24,7 +24,7 @@ tags = merge(
 }
 
 # Subnet group for RDS
-resource "aws_db_subnet_group" "RDS-np" {
-  name       = "postgres-subnet-group"
+resource "aws_db_subnet_group" "privateA-np" {
+  name       = "postgres-subnet-group-privateA"
   subnet_ids = [aws_subnet.private-a-np.id, aws_subnet.private-b-np.id]
 }
