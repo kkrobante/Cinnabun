@@ -5,8 +5,8 @@ resource "aws_db_instance" "cbddb01" {
   engine_version       = "17.6"
   instance_class       = "db.t4g.micro"
   db_name              = "cbddb01"
-  username             = "Admin123!"
-  password             = "Admin123!"
+  username             = "pgadminuser"
+  password             = "pgadminuser123!"
   parameter_group_name = "default.postgres17"
   skip_final_snapshot  = true
   publicly_accessible  = true
