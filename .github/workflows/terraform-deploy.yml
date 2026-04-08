@@ -18,7 +18,8 @@ on:
 jobs:
   TF-Workflow:
     runs-on: ubuntu-latest
-
+    env:
+      WD: ${{ inputs.wdirectory }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,28 +36,28 @@ jobs:
 
       - name: Terraform Format
         run: |
-          cd "${{ inputs.wdirectory }}"
+          cd "$WD"
           terraform fmt
 
       - name: Terraform Init
         run: |
-          cd "${{ inputs.wdirectory }}"
+          cd "$WD"
           terraform init
       
       - name: Terraform Validate
         run: |
-          cd "${{ inputs.wdirectory }}"
+          cd "$WD"
           terraform validate
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: |
-          cd "${{ inputs.wdirectory }}"
+          cd "$WD"
           terraform plan -out=tfplan -input=false -no-color
         
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          cd "${{ inputs.wdirectory }}" 
+          cd "$WD" 
           terraform apply -auto-approve
         
