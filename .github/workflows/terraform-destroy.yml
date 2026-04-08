@@ -1,4 +1,4 @@
-name: CB_WEB_Terraform_Destroy
+name: Terraform_Destroy
 
 on:
   workflow_dispatch:
