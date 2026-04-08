@@ -3,15 +3,17 @@ name: Terraform Deploy
 on:
   workflow_call:
     inputs:
+      wdirectory:
+        required: true
+        type: string
+    secrets:
       aws-access-key-id:
         required: true
       aws-secret-access-key:
         required: true
       aws-region:
         required: true
-      wokring-directory:
-        required: true
-        type: string
+      
 
 jobs:
   TF-Workflow:
@@ -32,20 +34,29 @@ jobs:
           aws-region: ${{ secrets.aws-region }}
 
       - name: Terraform Format
-        run: terraform fmt
+        run: |
+          cd ${{ inputs.wdirectory }}
+          terraform fmt
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          cd ${{ inputs.wdirectory }}
+          terraform init
       
       - name: Terraform Validate
-        run: terraform validate
+        run: | 
+          cd ${{ inputs.wdirectory }}
+          terraform validate
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
-        run: terraform plan -out=tfplan -input=false -no-color
-        working-directory: ${{ inputs.working-directory }}
-
+        run: |
+          cd ${{ inputs.wdirectory }}
+          terraform plan -out=tfplan -input=false -no-color
+        
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
-        working-directory: ${{ inputs.working-directory }}
+        run:
+          cd ${{ inputs.wdirectory }} 
+          terraform apply -auto-approve
+        
