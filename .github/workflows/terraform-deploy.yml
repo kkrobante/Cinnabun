@@ -35,29 +35,19 @@ jobs:
           aws-region: ${{ secrets.aws-region }}
 
       - name: Terraform Format
-        run: |
-          cd "$WD"
-          terraform fmt
+        run: cd "$WD" && terraform fmt
 
       - name: Terraform Init
-        run: |
-          cd "$WD"
-          terraform init
+        run: cd "$WD" && terraform init
       
       - name: Terraform Validate
-        run: |
-          cd "$WD"
-          terraform validate
+        run: cd "$WD" && terraform validate
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
-        run: |
-          cd "$WD"
-          terraform plan -out=tfplan -input=false -no-color
+        run: cd "$WD" && terraform plan -out=tfplan -input=false -no-color
         
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          cd "$WD" 
-          terraform apply -auto-approve
+        run: cd "$WD" && terraform apply -auto-approve
         
