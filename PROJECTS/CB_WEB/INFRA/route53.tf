@@ -14,5 +14,5 @@ resource "aws_route53_record" "cbdlapp01" {
   name    = "cbdlapp01"
   type    = "A"
   ttl     = 300
-  records = ["10.0.1.100"]
+  records = ["10.0.1.10"]
 }

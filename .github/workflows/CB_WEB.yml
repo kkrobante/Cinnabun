@@ -16,7 +16,7 @@ jobs:
   TF-Workflow:
     uses: ./.github/workflows/terraform-deploy.yml
     with:
-      working-directory: 'PROJECTS/CB_WEB/INFRA'
+      wdirectory: 'PROJECTS/CB_WEB/INFRA'
     secrets:
         aws-access-key-id: ${{ secrets.CB_WEB_AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.CB_WEB_AWS_SECRET_ACCESS_KEY }}
