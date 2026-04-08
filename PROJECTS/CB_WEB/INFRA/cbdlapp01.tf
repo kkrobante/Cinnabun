@@ -20,6 +20,7 @@ resource "aws_instance" "cbdlapp01" {
 resource "aws_network_interface" "cbdlapp01_p" {
   subnet_id = aws_subnet.private-a-np.id
   security_groups = [aws_security_group.CB-np.id]
+  private_ips = ["10.0.1.10"]
 }
 
 resource "aws_network_interface" "cbdlapp01_s" {
